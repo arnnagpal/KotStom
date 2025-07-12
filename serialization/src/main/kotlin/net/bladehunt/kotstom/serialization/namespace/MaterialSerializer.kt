@@ -1,9 +1,9 @@
 package net.bladehunt.kotstom.serialization.namespace
 
+import net.kyori.adventure.key.Key
 import net.minestom.server.item.Material
-import net.minestom.server.utils.NamespaceID
+import net.minestom.server.registry.StaticProtocolObject
 
 object MaterialSerializer : AbstractProtocolObjectSerializer<Material>(Material::class) {
-    override fun fromNamespaceId(namespaceID: NamespaceID): Material? =
-        Material.fromNamespaceId(namespaceID)
+    override fun fromKey(key: Key): StaticProtocolObject<Material>? = Material.fromKey(key)
 }

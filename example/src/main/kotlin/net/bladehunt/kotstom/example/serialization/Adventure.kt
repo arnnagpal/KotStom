@@ -2,9 +2,15 @@ package net.bladehunt.kotstom.example.serialization
 
 import kotlinx.serialization.Serializable
 import net.bladehunt.kotstom.serialization.adventure.AdventureNbt
-import net.kyori.adventure.nbt.TagStringIOExt
+import net.kyori.adventure.nbt.CompoundBinaryTag
+import net.kyori.adventure.nbt.TagStringIO
 
-@Serializable data class InnerExample(val name: String, val address: String, val age: Int)
+@Serializable
+data class InnerExample(
+    val name: String,
+    val address: String,
+    val age: Int,
+)
 
 @Serializable
 data class Test(
@@ -26,11 +32,12 @@ fun main() {
             3,
             InnerExample("hello world", "the earth", 64),
             InnerExample("hello earth", "the world", 46),
-            true)
+            true,
+        )
 
-    val valueAsCompound = AdventureNbt.encodeToCompound(valueToSerialize)
+    val valueAsCompound: CompoundBinaryTag = AdventureNbt.encodeToCompound(valueToSerialize)
 
-    println(TagStringIOExt.writeTag(valueAsCompound))
+    println(TagStringIO.tagStringIO().asString(valueAsCompound))
 
     val decodedValue = AdventureNbt.decodeFromCompound<Test>(valueAsCompound)
 

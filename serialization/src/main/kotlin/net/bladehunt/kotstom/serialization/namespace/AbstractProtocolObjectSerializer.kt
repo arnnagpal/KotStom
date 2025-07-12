@@ -6,22 +6,24 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import net.kyori.adventure.key.Key
 import net.minestom.server.registry.StaticProtocolObject
-import net.minestom.server.utils.NamespaceID
 import kotlin.reflect.KClass
 
-abstract class AbstractProtocolObjectSerializer<T : StaticProtocolObject>(serialName: String) :
-    KSerializer<T> {
-
+abstract class AbstractProtocolObjectSerializer<T : Any>(
+    serialName: String,
+) : KSerializer<StaticProtocolObject<T>> {
     constructor(clazz: KClass<T>) : this(requireNotNull(clazz.qualifiedName))
 
     override val descriptor: SerialDescriptor =
         PrimitiveSerialDescriptor(serialName, PrimitiveKind.STRING)
 
-    protected abstract fun fromNamespaceId(namespaceID: NamespaceID): T?
+    protected abstract fun fromKey(key: Key): StaticProtocolObject<T>?
 
-    final override fun deserialize(decoder: Decoder): T =
-        requireNotNull(fromNamespaceId(NamespaceID.from(decoder.decodeString())))
+    final override fun deserialize(decoder: Decoder): StaticProtocolObject<T> = requireNotNull(fromKey(Key.key(decoder.decodeString())))
 
-    final override fun serialize(encoder: Encoder, value: T) = encoder.encodeString(value.name())
+    final override fun serialize(
+        encoder: Encoder,
+        value: StaticProtocolObject<T>,
+    ) = encoder.encodeString(value.name())
 }

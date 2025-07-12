@@ -1,9 +1,9 @@
 package net.bladehunt.kotstom.serialization.namespace
 
+import net.kyori.adventure.key.Key
 import net.minestom.server.entity.EntityType
-import net.minestom.server.utils.NamespaceID
+import net.minestom.server.registry.StaticProtocolObject
 
 object EntityTypeSerializer : AbstractProtocolObjectSerializer<EntityType>(EntityType::class) {
-    override fun fromNamespaceId(namespaceID: NamespaceID): EntityType? =
-        EntityType.fromNamespaceId(namespaceID)
+    override fun fromKey(key: Key): StaticProtocolObject<EntityType>? = EntityType.fromKey(key)
 }

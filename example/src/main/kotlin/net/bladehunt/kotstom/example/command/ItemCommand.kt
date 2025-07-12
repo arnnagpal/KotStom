@@ -12,28 +12,29 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.minestom.server.entity.Player
 import net.minestom.server.item.Material
-import net.minestom.server.item.component.Unbreakable
 
-val ItemCommand = kommand("item") {
-    defaultExecutor { sender ->
-        sender.sendMessage("You aren't a player.")
-    }
+val ItemCommand =
+    kommand("item") {
+        defaultExecutor { sender ->
+            sender.sendMessage("You aren't a player.")
+        }
 
-    buildSyntax {
-        onlyPlayers()
+        buildSyntax {
+            onlyPlayers()
 
-        executor { player ->
-            player as Player
+            executor { player ->
+                player as Player
 
-            player.inventory.addItemStack(
-                item(Material.SNOW) {
-                    itemName = text("Red Snow", NamedTextColor.RED)
-                    lore {
-                        +text("This is some good snow", NamedTextColor.GOLD)
-                        +text("Maybe...", TextDecoration.ITALIC to false)
-                    }
-                    unbreakable = Unbreakable(true)
-                })
+                player.inventory.addItemStack(
+                    item(Material.SNOW) {
+                        itemName = text("Red Snow", NamedTextColor.RED)
+                        lore {
+                            +text("This is some good snow", NamedTextColor.GOLD)
+                            +text("Maybe...", TextDecoration.ITALIC to false)
+                        }
+                        unbreakable = true
+                    },
+                )
+            }
         }
     }
-}
