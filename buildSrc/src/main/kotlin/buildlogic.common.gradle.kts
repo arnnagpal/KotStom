@@ -2,10 +2,11 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
     id("com.gradleup.shadow")
+    id("org.jetbrains.dokka")
 }
 
 group = "net.bladehunt"
-version = "0.4.0-beta.1"
+version = "0.5.0-alpha.0"
 
 repositories {
     mavenCentral()
