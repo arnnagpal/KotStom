@@ -12,14 +12,16 @@ repositories {
 }
 ```
 
-The latest version can be found [here](https://github.com/bladehuntmc/KotStom/releases).
+The latest version can be found [here](https://github.com/oglassdev/KotStom/releases).
+
+**The KotStom version for 1.21.7 is `0.5.0-alpha.0`**
 
 ## Module Overview
 
 ### KotStom
 
 ```kotlin
-implementation("net.bladehunt:kotstom:<version>")
+implementation("dev.oglass:kotstom:<version>")
 ```
 
 - Minestom Extensions
@@ -45,7 +47,7 @@ implementation("net.bladehunt:kotstom:<version>")
 ### adventure-serialization
 
 ```kotlin
-implementation("net.bladehunt:kotstom-adventure-serialization:<version>")
+implementation("dev.oglass:kotstom-adventure-serialization:<version>")
 ```
 
 This module contains an Adventure NBT encoder and decoder.
@@ -58,7 +60,7 @@ This module contains an Adventure NBT encoder and decoder.
 ### serialization
 
 ```kotlin
-implementation("net.bladehunt:kotstom-serialization:<version>")
+implementation("dev.oglass:kotstom-serialization:<version>")
 ```
 
 This module contains some kotlinx.serialization serializers for Minestom.
