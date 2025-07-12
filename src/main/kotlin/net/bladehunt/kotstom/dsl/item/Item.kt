@@ -2,10 +2,9 @@ package net.bladehunt.kotstom.dsl.item
 
 import net.bladehunt.kotstom.extension.adventure.asMini
 import net.kyori.adventure.text.Component
-import net.minestom.server.item.ItemComponent
+import net.minestom.server.component.DataComponents
 import net.minestom.server.item.ItemStack
 import net.minestom.server.item.Material
-import net.minestom.server.item.component.Unbreakable
 
 @DslMarker
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.TYPE, AnnotationTarget.PROPERTY)
@@ -17,7 +16,9 @@ annotation class ItemDsl
  * @author oglassdev
  */
 @JvmInline
-value class ItemLore(private val list: MutableList<Component>) : MutableList<Component> by list {
+value class ItemLore(
+    private val list: MutableList<Component>,
+) : MutableList<Component> by list {
     /**
      * Adds a `Component` to the lore
      *
@@ -44,7 +45,7 @@ value class ItemLore(private val list: MutableList<Component>) : MutableList<Com
  */
 @ItemDsl
 inline fun ItemStack.Builder.lore(block: @ItemDsl ItemLore.() -> Unit) {
-    set(ItemComponent.LORE, ItemLore(arrayListOf()).apply(block))
+    set(DataComponents.LORE, ItemLore(arrayListOf()).apply(block))
 }
 
 /**
@@ -68,7 +69,7 @@ inline var ItemStack.Builder.amount: Int
 inline var ItemStack.Builder.itemName: Component
     get() = throw NotImplementedError("Cannot get ItemComponent from ItemStack.Builder")
     set(value) {
-        set(ItemComponent.ITEM_NAME, value)
+        set(DataComponents.ITEM_NAME, value)
     }
 
 /**
@@ -80,7 +81,7 @@ inline var ItemStack.Builder.itemName: Component
 inline var ItemStack.Builder.customName: Component
     get() = throw NotImplementedError("Cannot get ItemComponent from ItemStack.Builder")
     set(value) {
-        set(ItemComponent.CUSTOM_NAME, value)
+        set(DataComponents.CUSTOM_NAME, value)
     }
 
 /**
@@ -92,7 +93,7 @@ inline var ItemStack.Builder.customName: Component
 inline var ItemStack.Builder.damage: Int
     get() = throw NotImplementedError("Cannot get ItemComponent from ItemStack.Builder")
     set(value) {
-        set(ItemComponent.DAMAGE, value)
+        set(DataComponents.DAMAGE, value)
     }
 
 /**
@@ -101,10 +102,14 @@ inline var ItemStack.Builder.damage: Int
  * @author oglassdev
  */
 @ItemDsl
-inline var ItemStack.Builder.unbreakable: Unbreakable
+inline var ItemStack.Builder.unbreakable: Boolean
     get() = throw NotImplementedError("Cannot get ItemComponent from ItemStack.Builder")
     set(value) {
-        set(ItemComponent.UNBREAKABLE, value)
+        if (value) {
+            set(DataComponents.UNBREAKABLE, net.minestom.server.utils.Unit.INSTANCE)
+        } else {
+            remove(DataComponents.UNBREAKABLE)
+        }
     }
 
 /**
@@ -115,7 +120,7 @@ inline var ItemStack.Builder.unbreakable: Unbreakable
 @ItemDsl
 inline fun item(
     material: Material = Material.STONE,
-    block: @ItemDsl ItemStack.Builder.() -> Unit
+    block: @ItemDsl ItemStack.Builder.() -> Unit,
 ): ItemStack = ItemStack.builder(material).apply(block).build()
 
 /**
@@ -123,7 +128,8 @@ inline fun item(
  *
  * @author oglassdev
  */
-@ItemDsl fun item(material: Material): ItemStack = ItemStack.of(material)
+@ItemDsl
+fun item(material: Material): ItemStack = ItemStack.of(material)
 
 /**
  * ItemStack builder extension DSL
@@ -131,5 +137,4 @@ inline fun item(
  * @author oglassdev
  */
 @ItemDsl
-inline fun ItemStack.builder(block: @ItemDsl ItemStack.Builder.() -> Unit): ItemStack =
-    builder().apply(block).build()
+inline fun ItemStack.builder(block: @ItemDsl ItemStack.Builder.() -> Unit): ItemStack = builder().apply(block).build()
