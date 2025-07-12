@@ -5,7 +5,7 @@ plugins {
     id("org.jetbrains.dokka")
 }
 
-group = "net.bladehunt"
+group = "dev.oglass"
 version = "0.5.0-alpha.0"
 
 repositories {
