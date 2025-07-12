@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "net.bladehunt"
-version = "0.4.0-beta.1"
+version = "0.5.0-alpha.0"
 
 repositories {
     mavenCentral()
