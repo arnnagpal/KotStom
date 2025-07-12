@@ -1,17 +1,17 @@
 [versions]
-kotlin = "2.1.10"
-minestom = "96cedb1bab"
-adventure = "4.17.0"
-kotlinx-coroutines = "1.9.0"
-kotlinx-serialization = "1.8.0"
+kotlin = "2.2.0"
+minestom = "2025.07.11-1.21.7"
+adventure = "4.23.0"
+kotlinx-coroutines = "1.10.2"
+kotlinx-serialization = "1.9.0"
 kotest = "5.9.1"
 
-shadow = "8.3.5"
+shadow = "8.3.8"
 dokka = "2.0.0"
-jreleaser = "1.16.0"
+jreleaser = "1.19.0"
 
 [libraries]
-minestom = { group = "net.minestom", name = "minestom-snapshots", version.ref = "minestom" }
+minestom = { group = "net.minestom", name = "minestom", version.ref = "minestom" }
 adventure-minimessage = { group = "net.kyori", name = "adventure-text-minimessage", version.ref = "adventure" }
 kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization" }

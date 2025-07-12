@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
     id("com.gradleup.shadow")
+    id("org.jetbrains.dokka")
 }
 
 group = "net.bladehunt"
